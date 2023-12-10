@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Calculator with Modals</title>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to right, #ffd3e0, #ffb6c1);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #363062;
+        }
+
+        button,
+        .button {
+            background-color: #8d6a9f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        button:hover,
+        .button:hover {
+            background-color: #27ae60;
+            transform: translateY(-5px);
+        }
+
+        .button.slide-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal {
+            color: #363062;
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #FED9ED;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Conversion Calculator</h1>
+
+    <!-- Celsius to Fahrenheit Modal -->
+    <button onclick="openModal('modalCtoF')">Celsius to Fahrenheit</button>
+    <div id="modalCtoF" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalCtoF')">&times;</span>
+            <h3>Celsius to Fahrenheit</h3>
+            <label for="inputCtoF">Enter Celsius:</label>
+            <input type="number" id="inputCtoF">
+            <button onclick="convertCtoF()">Convert</button>
+            <button onclick="openModal('modalClearCtoF')">Clear</button>
+            <p id="resultCtoF"></p>
+        </div>
+    </div>
+
+    <!-- Clear Celsius to Fahrenheit Modal -->
+    <div id="modalClearCtoF" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalClearCtoF')">&times;</span>
+            <h3>Clear Inputs</h3>
+            <p>Are you sure you want to clear the inputs?</p>
+            <button onclick="clearInputs('inputCtoF', 'resultCtoF', 'modalClearCtoF')">OK</button>
+            <button onclick="closeModal('modalClearCtoF')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Fahrenheit to Celsius Modal -->
+    <button onclick="openModal('modalFtoC')">Fahrenheit to Celsius</button>
+    <div id="modalFtoC" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalFtoC')">&times;</span>
+            <h3>Fahrenheit to Celsius</h3>
+            <label for="inputFtoC">Enter Fahrenheit:</label>
+            <input type="number" id="inputFtoC">
+            <button onclick="convertFtoC()">Convert</button>
+            <button onclick="openModal('modalClearFtoC')">Clear</button>
+            <p id="resultFtoC"></p>
+        </div>
+    </div>
+
+    <!-- Clear Fahrenheit to Celsius Modal -->
+    <div id="modalClearFtoC" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalClearFtoC')">&times;</span>
+            <h3>Clear Inputs</h3>
+            <p>Are you sure you want to clear the inputs?</p>
+            <button onclick="clearInputs('inputFtoC', 'resultFtoC', 'modalClearFtoC')">OK</button>
+            <button onclick="closeModal('modalClearFtoC')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Meters to Feet Modal -->
+    <button onclick="openModal('modalMtoF')">Meters to Feet</button>
+    <div id="modalMtoF" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalMtoF')">&times;</span>
+            <h3>Meters to Feet</h3>
+            <label for="inputMtoF">Enter Meters:</label>
+            <input type="number" id="inputMtoF">
+            <button onclick="convertMtoF()">Convert</button>
+            <button onclick="openModal('modalClearMtoF')">Clear</button>
+            <p id="resultMtoF"></p>
+        </div>
+    </div>
+
+    <!-- Clear Meters to Feet Modal -->
+    <div id="modalClearMtoF" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalClearMtoF')">&times;</span>
+            <h3>Clear Inputs</h3>
+            <p>Are you sure you want to clear the inputs?</p>
+            <button onclick="clearInputs('inputMtoF', 'resultMtoF', 'modalClearMtoF')">OK</button>
+            <button onclick="closeModal('modalClearMtoF')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Feet to Meters Modal -->
+    <button onclick="openModal('modalFtoM')">Feet to Meters</button>
+    <div id="modalFtoM" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalFtoM')">&times;</span>
+            <h3>Feet to Meters</h3>
+            <label for="inputFtoM">Enter Feet:</label>
+            <input type="number" id="inputFtoM">
+            <button onclick="convertFtoM()">Convert</button>
+            <button onclick="openModal('modalClearFtoM')">Clear</button>
+            <p id="resultFtoM"></p>
+        </div>
+    </div>
+
+    <!-- Clear Feet to Meters Modal -->
+    <div id="modalClearFtoM" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalClearFtoM')">&times;</span>
+            <h3>Clear Inputs</h3>
+            <p>Are you sure you want to clear the inputs?</p>
+            <button onclick="clearInputs('inputFtoM', 'resultFtoM', 'modalClearFtoM')">OK</button>
+            <button onclick="closeModal('modalClearFtoM')">Cancel</button>
+        </div>
+    </div>
+    <a href="HOMEPAGE.html"><button>Back to Home Page</button></a>
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        function convertCtoF() {
+            var celsius = parseFloat(document.getElementById("inputCtoF").value);
+            var result = (celsius * 9/5) + 32;
+            document.getElementById("resultCtoF").innerHTML = `${celsius} Celsius is ${result.toFixed(2)} Fahrenheit`;
+        }
+
+        function convertFtoC() {
+            var fahrenheit = parseFloat(document.getElementById("inputFtoC").value);
+            var result = (fahrenheit - 32) * 5/9;
+            document.getElementById("resultFtoC").innerHTML = `${fahrenheit} Fahrenheit is ${result.toFixed(2)} Celsius`;
+        }
+
+        function convertMtoF() {
+            var meters = parseFloat(document.getElementById("inputMtoF").value);
+            var result = meters * 3.28084;
+            document.getElementById("resultMtoF").innerHTML = `${meters} Meters is ${result.toFixed(2)} Feet`;
+        }
+
+        function convertFtoM() {
+            var feet = parseFloat(document.getElementById("inputFtoM").value);
+            var result = feet / 3.28084;
+            document.getElementById("resultFtoM").innerHTML = `${feet} Feet is ${result.toFixed(2)} Meters`;
+        }
+
+        function clearInputs(inputId, resultId, modalId) {
+            document.getElementById(inputId).value = '';
+            document.getElementById(resultId).innerHTML = '';
+            closeModal(modalId);  // Close the modal after clearing inputs
+        }
+    </script>
+
+</body>
+</html>
