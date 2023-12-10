@@ -1,86 +1,167 @@
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-    h2{ 
-         text-align:center;
-       }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to right, #ffd3e0, #ffb6c1);
+            color: #fff;
+            min-height: 100vh;
+        }
 
-    table{
-       margin-left:auto;
-       margin-right:auto;
-    }
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+        .container {
+            text-align: center;
+            margin: 20px;
+            margin-bottom: 80px; /* Added margin to the bottom to make space for the footer */
+        }
 
-</style>
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #363062;
+        }
+
+        #content {
+            display: flex;
+            justify-content: space-around; /* Align sections horizontally with space in between */
+            align-items: center;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+
+        .section {
+            opacity: 0;
+            border: 2px solid #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 200px; /* Adjusted max-width for a more compact design */
+            margin: 20px; /* Added margin for space between sections */
+            animation: fadeIn 1s ease-in-out forwards;
+            background: #31304D;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Added box shadow for a shadow effect */
+            display: none;
+        }
+
+        .section h2 {
+            color: #fff;
+        }
+
+        .section p {
+            color: #ddd;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #8d6a9f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #27ae60;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        footer {
+            background-color: #8d6a9f;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+    </style>
 </head>
-
-
 <body>
-<h2>HTML Tables</h2><br><br>
-<table border=1>
-    <!-- Table Header -->
-    <thead>
-        <tr>
-            <td>Employee Name</td>
-            <td>Days Worked</td>
-            <td>Daily Wage</td>
-            <td>Gross Pay</td>
-            <td>Deductions</td>
-            <td>Net Pay</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>John Smith</td>
-            <td>30</td>
-            <td>500</td>
-            <td>15000</td>
-            <td>2000</td>
-            <td>13000</td>
-        </tr>
 
-        <tr>
-            <td>Peter Dalley</td>
-            <td>20</td>
-            <td>600</td>
-            <td>12000</td>
-            <td>3000</td>
-            <td>9000</td>
-        </tr>
+    <div class="container">
+        <h1>Intro to Computing Final Project</h1>
 
-        <tr>
-            <td>Amanda Wiliams</td>
-            <td>25</td>
-            <td>600</td>
-            <td>15000</td>
-            <td>2000</td>
-            <td>13000</td>
-        </tr>
+        <div id="content">
+            <button id="startButton" class="button" onclick="showContent()">Start Exploring</button>
 
-        <tr>
-            <td>Gregory Page</td>
-            <td>20</td>
-            <td>500</td>
-            <td>10000</td>
-            <td>2500</td>
-            <td>7500</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>Total:</td>
-            <td>52000</td>
-            <td>9500</td>
-            <td>42500</td>
-        </tr>
-    </tfoot>
+            <div id="section1" class="section">
+                <h2>'Conversion'</h2>
+                <p>This assignment involves creating a conversion calculator with HTML and JavaScript. Users can input values in Celsius and Fahrenheit to convert between the two temperature scales. Additionally, the calculator provides the functionality to convert lengths between meters and feet, as well as feet to meters.</p>
+                <a href="1stassignment.html" class="button">Explore Section 1</a>
+            </div>
 
-</table>
+            <div id="section2" class="section">
+                <h2>'Income Tax Calculator'</h2>
+                <p>In this assignment, you will build an Income Tax Calculator using HTML and JavaScript. Users can input their annual income, and the calculator will determine the income tax owed based on predefined tax brackets and rates. The goal is to create a simple tool for individuals to estimate their income tax liability.</p>
+                <a href="2ndassignment.html" class="button">Explore Section 2</a>
+            </div>
 
+            <div id="section3" class="section">
+                <h2>'Looping'</h2>
+                <p>This assignment focuses on implementing basic loop structures in JavaScript. The program calculates the factorial of a number using a while loop, the sum of first N natural numbers using a do-while loop, and the average of first N natural numbers using a for loop.</p>
+                <a href="3rdassignment.html" class="button">Explore Section 3</a>
+            </div>
 
+            <div id="section4" class="section">
+                <h2>'Simple Payroll'</h2>
+                <p>The Simple Payroll assignment involves creating a payroll calculator with HTML and JavaScript. Users input the hours worked and hourly rate, and the calculator computes the total pay. The assignment also includes a feature to clear the output and a modal for user interaction.</p>
+                <a href="4thassignment.html" class="button">Explore Section 4</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent() {
+            document.getElementById('startButton').style.display = 'none';
+
+            // Show each section one by one with a delay
+            setTimeout(function () {
+                document.getElementById('section1').style.display = 'block';
+            }, 500);
+            setTimeout(function () {
+                document.getElementById('section2').style.display = 'block';
+            }, 1000);
+            setTimeout(function () {
+                document.getElementById('section3').style.display = 'block';
+            }, 1500);
+            setTimeout(function () {
+                document.getElementById('section4').style.display = 'block';
+            }, 2000);
+        }
+    </script>
+    <footer>
+        &copy; ITC Project. All rights reserved.
+    </footer>
 </body>
 </html>
