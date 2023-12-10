@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffd3e0, #ffb6c1);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #payroll-form {
+            background-color: #BB9CC0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+        button {
+            background-color: #8d6a9f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        #clear-button {
+            background-color: #8d6a9f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        #clear-button:hover{
+            background-color: #27ae60;
+        }
+
+        .button {
+            background-color: #8d6a9f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.5s;
+        }
+
+        /* Button hover styles */
+        .button:hover {
+            background-color: #27ae60;
+            transform: translateY(-5px);
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        /* Styles for modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            color: #333;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            
+        }
+
+        .modal-buttons button {
+            margin: 0 10px;
+            padding: 8px 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .modal-buttons button.ok-btn {
+            background-color: #27ae60;
+            color: #fff;
+        }
+
+        .modal-buttons button.cancel-btn {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="payroll-form">
+    <h2>Payroll Calculator</h2>
+    <label for="hours">Hours Worked:</label>
+    <input type="number" id="hours" placeholder="Enter hours">
+
+    <label for="rate">Hourly Rate:</label>
+    <input type="number" id="rate" placeholder="Enter rate">
+
+    <button onclick="calculatePay()">Calculate</button>
+
+    <div id="output"></div>
+
+    <!-- Clear output button -->
+    <button id="clear-button" onclick="showModal('Are you sure you want to clear the output?', clearOutput, true)">Clear Output</button>
+</div>
+
+<!-- Back to Home Page button -->
+ <a href="HOMEPAGE.html"><button>Back to Home Page</button></a>
+<!-- Modal for messages -->
+<div id="modal-overlay" class="modal-overlay">
+    <div id="modal-content" class="modal-content">
+        <span class="close-modal" onclick="closeModal()">X</span>
+        <p id="modal-message"></p>
+        <div class="modal-buttons" id="modal-buttons"></div>
+    </div>
+</div>
+
+<script>
+    function calculatePay() {
+        const hours = parseFloat(document.getElementById('hours').value);
+        const rate = parseFloat(document.getElementById('rate').value);
+
+        if (isNaN(hours) || isNaN(rate) || hours < 0 || rate < 0) {
+            showModal("Invalid input. Please enter valid values.", null, false);
+            return;
+        }
+
+        const totalPay = hours * rate;
+        document.getElementById('output').innerText = `Total Pay: $${totalPay.toFixed(2)}`;
+    }
+
+    function clearOutput() {
+        document.getElementById('output').innerText = '';
+        document.getElementById('hours').value = '';
+        document.getElementById('rate').value = '';
+        closeModal();
+    }
+
+    function showModal(message, callback, showCancel) {
+        document.getElementById('modal-message').innerHTML = message;
+        document.getElementById('modal-overlay').style.display = 'flex';
+
+        const modalButtons = document.getElementById('modal-buttons');
+        modalButtons.innerHTML = '';
+
+        const okButton = document.createElement('button');
+        okButton.textContent = 'OK';
+        okButton.className = 'ok-btn';
+        okButton.onclick = function () {
+            if (callback) {
+                callback();
+            }
+            closeModal();
+        };
+        modalButtons.appendChild(okButton);
+
+        if (showCancel) {
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'Cancel';
+            cancelButton.className = 'cancel-btn';
+            cancelButton.onclick = closeModal;
+            modalButtons.appendChild(cancelButton);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
